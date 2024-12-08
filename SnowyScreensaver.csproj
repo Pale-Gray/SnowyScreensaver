@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<PathMap>$(MSBuildThisFileDirectory)=.\</PathMap>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>SnowyScreensaver</RootNamespace>
+		<Platforms>AnyCPU;x64;x86</Platforms>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<BaseOutputPath>bin\</BaseOutputPath>
+		<Deterministic>false</Deterministic>
+	</PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="OpenTK" Version="5.0.0-pre.13" />
+        <PackageReference Include="StbImageSharp" Version="2.30.15" />
+    </ItemGroup>
+
+</Project>
