@@ -23,7 +23,7 @@ namespace ScreensaverTests
         public static bool IsRunning = true;
         public static bool IsFullscreen = false;
         public static bool IsFirstFrame = true;
-        public static bool ShouldClose = true;
+        public static bool ShouldClose = false;
 
         public static Vector2 PreviousMousePosition = Vector2.Zero;
         public static Vector2 CurrentMousePosition = Vector2.Zero;
