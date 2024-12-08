@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ScreensaverTests
 {
-    internal class Screensaver 
+    internal class Screensaver  
     {
 
         public static bool IsRunning = true;
