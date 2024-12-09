@@ -23,7 +23,7 @@ namespace ScreensaverTests
         public static bool IsRunning = true;
         public static bool IsFullscreen = false;
         public static bool IsFirstFrame = true;
-        public static bool ShouldClose = false;
+        public static bool ShouldClose = true;
 
         public static Vector2 PreviousMousePosition = Vector2.Zero;
         public static Vector2 CurrentMousePosition = Vector2.Zero;
@@ -40,6 +40,8 @@ namespace ScreensaverTests
 
         public static Vector2 Position = Vector2.Zero;
         public static Vector2 Velocity = Vector2.Zero;
+
+        public static Vector2 StartingMousePosition = Vector2.Zero;
 
         public static bool IsInPreview = false;
         public static IntPtr PreviewHandle = 0;
@@ -103,6 +105,8 @@ namespace ScreensaverTests
 
             Toolkit.Window.SetBorderStyle(Window, WindowBorderStyle.Borderless);
             Toolkit.Window.SetMode(Window, WindowMode.Normal);
+
+            Toolkit.Mouse.GetPosition(Window, out StartingMousePosition);
 
             if (IsInPreview)
             {
@@ -190,8 +194,12 @@ namespace ScreensaverTests
 
             }
 
+            Toolkit.Mouse.GetGlobalPosition(out PreviousMousePosition);
+
             while (IsRunning)
             {
+
+                // Console.WriteLine($"mpos {MouseDelta}");
 
                 GlobalValues.Time += GlobalValues.DeltaTime;
 
@@ -223,7 +231,7 @@ namespace ScreensaverTests
                 }
                 t += GlobalValues.DeltaTime;
 
-                Vector2 p = (r.Next(-(int)GlobalValues.HEIGHT - 150, (int)GlobalValues.WIDTH + 150 + 1 + (int)GlobalValues.HEIGHT), WindowScale * (-6 - r.Next(0, 150)));
+                Vector2 p = (r.Next(-40, (int)GlobalValues.WIDTH + 40), WindowScale * (-6 - r.Next(0, 150)));
                 sprites.Add(new Sprite(tex, (50, 50), p, (0.5f, 0.5f), Vector3.Zero, Lerp(0.1f, 0.25f, (float)(r.NextDouble()))));
 
                 for (int i = 0; i < sprites.Count; i++)
@@ -247,6 +255,8 @@ namespace ScreensaverTests
                   
                     sprites[i].Position += ((sprites[i].Velocity * WindowScale) * (float)GlobalValues.DeltaTime);
                     sprites[i].Scale -= ((0.01f * WindowScale) * (float)GlobalValues.DeltaTime);
+
+                    if (sprites[i].Position.X < -40) sprites[i].Position.X += GlobalValues.WIDTH + 40;
 
                 }
 

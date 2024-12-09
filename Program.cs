@@ -20,6 +20,13 @@ namespace ScreensaverTests
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledExceptionHandler);
 
+            foreach (string str in args)
+            {
+
+                Console.WriteLine(str);
+
+            }
+
             if (args.Length > 0)
             {
 
