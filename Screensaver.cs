@@ -232,7 +232,7 @@ namespace ScreensaverTests
                 t += GlobalValues.DeltaTime;
 
                 Vector2 p = (r.Next(-40, (int)GlobalValues.WIDTH + 40), WindowScale * (-6 - r.Next(0, 150)));
-                sprites.Add(new Sprite(tex, (50, 50), p, (0.5f, 0.5f), Vector3.Zero, Lerp(0.1f, 0.25f, (float)(r.NextDouble()))));
+                sprites.Add(new Sprite(tex, (50, 50), p, (0.5f, 0.5f), Vector3.Zero, Lerp(0.1f, 0.25f, (float)(r.NextDouble())), Lerp(0.25f, 1.0f, (float)r.NextDouble())));
 
                 for (int i = 0; i < sprites.Count; i++)
                 {

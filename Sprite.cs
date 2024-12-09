@@ -20,6 +20,7 @@ namespace ScreensaverTests
         public Vector2 Origin;
         public Vector3 Rotation;
         public float Scale;
+        public float Alpha = 1.0f;
 
         public static string vertexShaderString =
             """
@@ -65,6 +66,7 @@ namespace ScreensaverTests
             uniform float nullTexture;
             uniform vec2 screenResolution;
             uniform vec2 screenPosition;
+            uniform float spriteAlpha;
             uniform float time;
 
             void main()
@@ -74,7 +76,7 @@ namespace ScreensaverTests
 
                 if (nullTexture == 0.0) {
                     vec4 texColor = texture(tex, vtexcoord);
-                    FragColor = vec4(texColor.rgb,texColor.a * min(1.0, (height * 4.0)));
+                    FragColor = vec4(texColor.rgb,(texColor.a * spriteAlpha) * min(1.0, (height * 4.0)));
                 } else {
                     FragColor = vec4(vec3(1),1.0 - (height/2.0));
                 }
@@ -82,7 +84,7 @@ namespace ScreensaverTests
             }
             """;
 
-        public Sprite(Texture texture, Vector2 size, Vector2 position, Vector2 origin, Vector3 rotation, float scale)
+        public Sprite(Texture texture, Vector2 size, Vector2 position, Vector2 origin, Vector3 rotation, float scale, float alpha)
         {
 
             SpriteShader = new Shader(vertexShaderString, fragmentShaderString);
@@ -93,6 +95,7 @@ namespace ScreensaverTests
             Origin = origin;
             Rotation = rotation;
             Scale = scale;
+            Alpha = alpha;
 
             float[] vertices =
             {
@@ -163,6 +166,7 @@ namespace ScreensaverTests
             GL.Uniform2f(GL.GetUniformLocation(SpriteShader.id, "size"), Size.X, Size.Y);
             GL.Uniform2f(GL.GetUniformLocation(SpriteShader.id, "screenResolution"), GlobalValues.WIDTH, GlobalValues.HEIGHT);
             GL.Uniform1f(GL.GetUniformLocation(SpriteShader.id, "time"), (float)GlobalValues.Time);
+            GL.Uniform1f(GL.GetUniformLocation(SpriteShader.id, "spriteAlpha"), Alpha);
 
             GL.BindVertexArray(_vao);
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
