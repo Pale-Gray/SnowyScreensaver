@@ -2,4 +2,4 @@
 
 ## Just a simple, snowy screensaver for Windows
 
-![A preview of the screensaver.](/githubimages/preview.png)
+![An animation of the screensaver.](/githubimages/preview.gif)
